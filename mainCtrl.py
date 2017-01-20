@@ -1,0 +1,3 @@
+from initialSystem import *
+
+initialData()
