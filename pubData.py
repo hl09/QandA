@@ -11,17 +11,19 @@ class PubData():
     def __init__(self):
         df = pd.read_excel('q.xlsx')
         aDataList = df['name'].tolist()
-        self.globalDataList = aDataList
-        self.currentDataList = aDataList
-        self.currentQuestion = 'initial....'
+        PubData.globalDataList = aDataList
+        PubData.currentDataList = aDataList
+        PubData.currentQuestion = 'initial....'
 
         print('initial successful....')
 
     #随机获取当前问题，并移除队列
     def getCurrentQuestion(self):
-        self.currentQuestion = random.choice(self.currentDataList)
-        self.currentDataList.remove(self.currentQuestion)
-        return self.currentQuestion
+        PubData.currentQuestion = random.choice(PubData.currentDataList)
+        PubData.currentDataList.remove(PubData.currentQuestion)
+        return PubData.currentQuestion
 
     def testOutPut(self):
         print(self.currentQuestion)
+
+
