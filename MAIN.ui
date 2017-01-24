@@ -48,6 +48,15 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="segmentStyle">
+    <enum>QLCDNumber::Flat</enum>
+   </property>
+   <property name="intValue" stdset="0">
+    <number>60</number>
+   </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">

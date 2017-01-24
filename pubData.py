@@ -1,6 +1,7 @@
 import sys
 import random
 import pandas as pd
+import copy
 
 class PubData():
     globalDataList = []
@@ -11,16 +12,18 @@ class PubData():
     def __init__(self):
         df = pd.read_excel('q.xlsx')
         aDataList = df['name'].tolist()
-        PubData.globalDataList = aDataList
-        PubData.currentDataList = aDataList
+        #对象赋值必须使用深拷贝，否则就会变成引用
+        PubData.globalDataList = copy.deepcopy(aDataList)
+        PubData.currentDataList = copy.deepcopy(aDataList)
         PubData.currentQuestion = 'initial....'
+
+
 
         print('initial successful....')
 
-    #随机获取当前问题，并移除队列
+    #随机获取当前问题
     def getCurrentQuestion(self):
         PubData.currentQuestion = random.choice(PubData.currentDataList)
-        PubData.currentDataList.remove(PubData.currentQuestion)
         return PubData.currentQuestion
 
     def testOutPut(self):
