@@ -7,6 +7,7 @@ class PubData():
     globalDataList = []
     currentDataList = []
     currentQuestion = ''
+    currentCorrectNumber= 0
 
     #初始化,从excel文件装载数据，完成问题列表数据初始化
     def __init__(self):
