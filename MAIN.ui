@@ -83,9 +83,9 @@
   <widget class="QLabel" name="labelQ">
    <property name="geometry">
     <rect>
-     <x>260</x>
+     <x>239</x>
      <y>180</y>
-     <width>161</width>
+     <width>261</width>
      <height>101</height>
     </rect>
    </property>
@@ -96,7 +96,7 @@
     </font>
    </property>
    <property name="text">
-    <string>千里之外</string>
+    <string>猜！猜！猜!</string>
    </property>
   </widget>
   <widget class="QLabel" name="labell">

@@ -29,7 +29,7 @@ class QAWindow(QtWidgets.QWidget,Ui_Dialog):
 
         #设置每轮计时时间
         global restTime
-        restTime = 5
+        restTime = 8
 
         #设置状态标志，用来控制界面
         global runningFlag
@@ -60,6 +60,28 @@ class QAWindow(QtWidgets.QWidget,Ui_Dialog):
         self.pushButtonRight.clicked.connect(self.doRightClick)
         #绑定答错按钮处理函数
         self.pushButtonWrong.clicked.connect(self.doWrongClick)
+        #绑定开始按钮处理函数
+        self.pushButtonGo.clicked.connect(self.doStartClick)
+
+    #处理开始一轮游戏的场景
+    def doStartClick(self):
+        print('new start...')
+        self.pushButtonWrong.setEnabled(True)
+        self.pushButtonRight.setEnabled(True)
+        self.pushButtonGo.setEnabled(False)
+
+        #设置运行状态
+        global runningFlag
+        runningFlag = True
+
+        #设置倒计时时间
+        global restTime
+        restTime = 8
+        # 将本轮答对题目数置0，准备好本轮的问题列表，随机抽出当前问题，等待新一轮游戏开始
+        pData.currentCorrectNumber = 0
+        pData.currentDataList = copy.deepcopy(pData.globalDataList)
+        self.labelQ.setText(pData.getCurrentQuestion())
+
 
     #处理答对场景，将答对题目移除，并随机抽选下一题.将本轮答对数量加1
     def doRightClick(self):
@@ -67,17 +89,19 @@ class QAWindow(QtWidgets.QWidget,Ui_Dialog):
         pData.currentDataList.remove(pData.currentQuestion)
         pData.globalDataList.remove(pData.currentQuestion)
         pData.currentCorrectNumber = pData.currentCorrectNumber + 1
-
         self.labelQ.setText(pData.getCurrentQuestion())
         self.labelCorrectNumber.setText(str(pData.currentCorrectNumber))
 
-        print(pData.currentQuestion)
+        if pData.currentQuestion == 'none':
+            QtWidgets.QMessageBox.about(mainfrm, "标题","<p>没有足够的问题可供选择，系统退出！</p>")
 
     #处理答错/略过场景，将答错题目从本轮游戏中移除，但总列表保留，并随机抽选下一题
     def doWrongClick(self):
         print('wrong button onclicked!')
         pData.currentDataList.remove(pData.currentQuestion)
         self.labelQ.setText(pData.getCurrentQuestion())
+        if pData.currentQuestion == 'none':
+            QtWidgets.QMessageBox.about(mainfrm, "标题","<p>没有足够的问题可供选择，系统退出！</p>")
         print(pData.currentQuestion)
 
 
@@ -96,12 +120,17 @@ class QAWindow(QtWidgets.QWidget,Ui_Dialog):
 
             self.lcdNumber.display(str(self.lcdNumber.intValue))
           else:
+            #处理时间结束场景：统计答对数目、设置按钮状态、设置显示、设置倒计时
             print('its time up')
             self.pushButtonRight.setEnabled(False)
             self.pushButtonWrong.setEnabled(False)
+            self.pushButtonGo.setEnabled(True)
             QtWidgets.QMessageBox.about(mainfrm, "标题","<p>本轮游戏结束！</p><p>答对题数为："+str(pData.currentCorrectNumber)+"</p>")
             self.lcdNumber.display('00:00')
+            self.labelQ.setText('猜！猜！猜！')
+            self.labelCorrectNumber.setText('0')
             runningFlag = False
+
        else:
          self.lcdNumber.display('00:00')
 
