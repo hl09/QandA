@@ -24,11 +24,13 @@ class PubData():
 
     #随机获取当前问题
     def getCurrentQuestion(self):
+          #此处使用self.与使用PubData. 有重大区别
           if len(self.currentDataList) > 0 :
              self.currentQuestion = random.choice(self.currentDataList)
-             return self.currentQuestion
           else:
-             return 'none'
+             self.currentQuestion = 'none'
+
+          return self.currentQuestion
 
     def testOutPut(self):
         print(self.currentQuestion)

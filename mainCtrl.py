@@ -90,18 +90,21 @@ class QAWindow(QtWidgets.QWidget,Ui_Dialog):
         pData.globalDataList.remove(pData.currentQuestion)
         pData.currentCorrectNumber = pData.currentCorrectNumber + 1
         self.labelQ.setText(pData.getCurrentQuestion())
-        self.labelCorrectNumber.setText(str(pData.currentCorrectNumber))
-
         if pData.currentQuestion == 'none':
             QtWidgets.QMessageBox.about(mainfrm, "标题","<p>没有足够的问题可供选择，系统退出！</p>")
+            QtWidgets.close()
+        self.labelCorrectNumber.setText(str(pData.currentCorrectNumber))
+
+
 
     #处理答错/略过场景，将答错题目从本轮游戏中移除，但总列表保留，并随机抽选下一题
     def doWrongClick(self):
         print('wrong button onclicked!')
-        pData.currentDataList.remove(pData.currentQuestion)
-        self.labelQ.setText(pData.getCurrentQuestion())
         if pData.currentQuestion == 'none':
             QtWidgets.QMessageBox.about(mainfrm, "标题","<p>没有足够的问题可供选择，系统退出！</p>")
+            QtWidgets.close()
+        pData.currentDataList.remove(pData.currentQuestion)
+        self.labelQ.setText(pData.getCurrentQuestion())
         print(pData.currentQuestion)
 
 
