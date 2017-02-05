@@ -22,10 +22,16 @@
      <height>451</height>
     </rect>
    </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
+   </property>
    <property name="currentIndex">
     <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
     <attribute name="title">
      <string>游戏内容</string>
     </attribute>
@@ -166,6 +172,25 @@
       <string>答对了！</string>
      </property>
     </widget>
+    <widget class="QLabel" name="label_Member">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>80</y>
+       <width>181</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>黑体</family>
+       <pointsize>24</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>等待挑战者！</string>
+     </property>
+    </widget>
     <zorder>pushButtonGo</zorder>
     <zorder>labelCorrectNumber</zorder>
     <zorder>label</zorder>
@@ -177,11 +202,28 @@
     <zorder>labelQ</zorder>
     <zorder>pushButtonWrong</zorder>
     <zorder>pushButtonRight</zorder>
+    <zorder>label_Member</zorder>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
      <string>排名</string>
     </attribute>
+    <widget class="QTableView" name="tableView">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>631</width>
+       <height>401</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>宋体</family>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>

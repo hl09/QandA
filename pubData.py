@@ -6,7 +6,9 @@ import copy
 class PubData():
     globalDataList = []
     currentDataList = []
+    rankingList = []
     currentQuestion = ''
+    currentMember = ''
     currentCorrectNumber= 0
 
     #初始化,从excel文件装载数据，完成问题列表数据初始化
@@ -35,4 +37,15 @@ class PubData():
     def testOutPut(self):
         print(self.currentQuestion)
 
+class Ranking():
+    teamName = ''
+    score = 0
+
+    def __init__(self):
+        teamName = ''
+        score = 0
+
+    #增加一个比较方法，用于列表排序
+    def __lt__(self, other):
+        return self.score > other.score
 

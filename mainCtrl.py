@@ -27,6 +27,10 @@ class QAWindow(QtWidgets.QWidget,Ui_Dialog):
         super(QAWindow,self).__init__()
         self.setupUi(self)
 
+        #设置标题和控制大小按钮
+        self.setWindowTitle('趣味猜词')
+        self.setFixedSize(self.width(), self.height());
+
         #设置每轮计时时间
         global restTime
         restTime = 8
@@ -54,8 +58,6 @@ class QAWindow(QtWidgets.QWidget,Ui_Dialog):
         self.labelCorrectNumber.setAutoFillBackground(True)
         self.labelCorrectNumber.setPalette(pe)
 
-
-
         #绑定答对按钮处理函数
         self.pushButtonRight.clicked.connect(self.doRightClick)
         #绑定答错按钮处理函数
@@ -63,12 +65,40 @@ class QAWindow(QtWidgets.QWidget,Ui_Dialog):
         #绑定开始按钮处理函数
         self.pushButtonGo.clicked.connect(self.doStartClick)
 
+    #刷新排名
+    def buildRanking(self):
+        #将得分列表进行排序
+        pData.rankingList.sort()
+        #设置排名grid，设置行，列
+        aModel = QStandardItemModel(2,2)
+
+        #从列表中构建排名
+        i = 0
+        for member in pData.rankingList:
+            aItem = QStandardItem(member.teamName)
+            bItem = QStandardItem(str(member.score))
+            aModel.setItem(i, 0, aItem)
+            aModel.setItem(i, 1, bItem)
+            i = i + 1
+        #设置列头
+        aModel.setHorizontalHeaderLabels(['挑战者', '答对题数'])
+        #将MODEL与VIEW绑定
+        self.tableView.setModel(aModel)
+
     #处理开始一轮游戏的场景
     def doStartClick(self):
         print('new start...')
         self.pushButtonWrong.setEnabled(True)
         self.pushButtonRight.setEnabled(True)
         self.pushButtonGo.setEnabled(False)
+
+        #填写本轮游戏挑战者
+        teamMemberList = ['老面', '宋炮','鼻涕虫','财务','挖机']
+        currentTeamMember, ok = QInputDialog.getItem(self, self.tr("名字"), self.tr("请选择参赛队员"), teamMemberList)
+        self.label_Member.setText(currentTeamMember)
+
+        pData.currentMember = currentTeamMember
+
 
         #设置运行状态
         global runningFlag
@@ -132,6 +162,16 @@ class QAWindow(QtWidgets.QWidget,Ui_Dialog):
             self.lcdNumber.display('00:00')
             self.labelQ.setText('猜！猜！猜！')
             self.labelCorrectNumber.setText('0')
+            self.label_Member.setText('等待挑战者！')
+
+            #更新名次
+            ranking = Ranking()
+            ranking.teamName = pData.currentMember
+            ranking.score = pData.currentCorrectNumber
+            pData.rankingList.append(ranking)
+
+            self.buildRanking()
+
             runningFlag = False
 
        else:
