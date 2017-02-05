@@ -87,7 +87,6 @@ class QAWindow(QtWidgets.QWidget,Ui_Dialog):
 
     #处理开始一轮游戏的场景
     def doStartClick(self):
-        print('new start...')
         self.pushButtonWrong.setEnabled(True)
         self.pushButtonRight.setEnabled(True)
         self.pushButtonGo.setEnabled(False)
@@ -115,7 +114,6 @@ class QAWindow(QtWidgets.QWidget,Ui_Dialog):
 
     #处理答对场景，将答对题目移除，并随机抽选下一题.将本轮答对数量加1
     def doRightClick(self):
-        print('right button onclicked!')
         pData.currentDataList.remove(pData.currentQuestion)
         pData.globalDataList.remove(pData.currentQuestion)
         pData.currentCorrectNumber = pData.currentCorrectNumber + 1
@@ -129,13 +127,11 @@ class QAWindow(QtWidgets.QWidget,Ui_Dialog):
 
     #处理答错/略过场景，将答错题目从本轮游戏中移除，但总列表保留，并随机抽选下一题
     def doWrongClick(self):
-        print('wrong button onclicked!')
         if pData.currentQuestion == 'none':
             QtWidgets.QMessageBox.about(mainfrm, "标题","<p>没有足够的问题可供选择，系统退出！</p>")
             QtWidgets.close()
         pData.currentDataList.remove(pData.currentQuestion)
         self.labelQ.setText(pData.getCurrentQuestion())
-        print(pData.currentQuestion)
 
 
 
@@ -154,7 +150,6 @@ class QAWindow(QtWidgets.QWidget,Ui_Dialog):
             self.lcdNumber.display(str(self.lcdNumber.intValue))
           else:
             #处理时间结束场景：统计答对数目、设置按钮状态、设置显示、设置倒计时
-            print('its time up')
             self.pushButtonRight.setEnabled(False)
             self.pushButtonWrong.setEnabled(False)
             self.pushButtonGo.setEnabled(True)
@@ -191,6 +186,5 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     mainfrm = QAWindow()
     mainfrm.show()
-    print('gogogogo')
     app.exec_()
 

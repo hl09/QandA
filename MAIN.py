@@ -89,7 +89,7 @@ class Ui_Dialog(object):
         self.tableView.setGeometry(QtCore.QRect(10, 10, 631, 401))
         font = QtGui.QFont()
         font.setFamily("宋体")
-        font.setPointSize(14)
+        font.setPointSize(12)
         self.tableView.setFont(font)
         self.tableView.setObjectName("tableView")
         self.tabWidget.addTab(self.tab_2, "")

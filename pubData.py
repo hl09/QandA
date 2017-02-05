@@ -34,8 +34,7 @@ class PubData():
 
           return self.currentQuestion
 
-    def testOutPut(self):
-        print(self.currentQuestion)
+
 
 class Ranking():
     teamName = ''
